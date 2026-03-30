@@ -5,7 +5,7 @@ export default {
     bottom: '回到底部',
   },
   Time: {
-    weekdays: '星期日_星期一_星期二_星期三_星期四_星期五_星期六'.split('_'),
+    weekdays: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
     formats: {
       LT: 'HH:mm', // 00:32
       lll: 'YYYY年M月D日 HH:mm', // 2019年2月22日 00:28

@@ -14,8 +14,8 @@ export type RateActionsProps = {
 
 export const RateActions = (props: RateActionsProps) => {
   const { trans } = useLocale('RateActions', {
-    up: '赞同',
-    down: '反对',
+    up: 'Up vote',
+    down: 'Down vote',
   });
 
   const { upTitle = trans('up'), downTitle = trans('down'), onClick } = props;

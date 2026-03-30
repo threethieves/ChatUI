@@ -5,7 +5,7 @@ export default {
     bottom: 'Bottom',
   },
   Time: {
-    weekdays: 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
+    weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     formats: {
       LT: 'HH:mm',
       lll: 'M/D/YYYY HH:mm',
