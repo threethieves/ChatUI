@@ -103,11 +103,11 @@
   ],
   "homepage": "https://chatui.io/",
   "bugs": {
-    "url": "https://github.com/alibaba/ChatUI/issues"
+    "url": "https://github.com/threethieves/ChatUI/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/alibaba/ChatUI"
+    "url": "https://github.com/threethieves/ChatUI"
   },
   "author": "akai <akainice@gmail.com>",
   "license": "MIT"
