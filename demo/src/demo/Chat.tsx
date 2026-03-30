@@ -50,6 +50,7 @@ const initialMessages: MessageWithoutId[] = [
     createdAt: Date.now(),
     hasTime: true,
     position: 'right',
+    timeFormat: 'MM-DD HH:mm:ss'
   },
   {
     type: 'guess-you',

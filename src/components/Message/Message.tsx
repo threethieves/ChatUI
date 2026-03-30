@@ -33,6 +33,10 @@ export interface MessageProps {
    */
   createdAt?: number;
   /**
+   * 消息时间格式
+   */
+  timeFormat?: string;
+  /**
    * 消息发送者信息
    */
   user?: User;
@@ -56,7 +60,7 @@ export interface MessageProps {
 
 const Message = (props: MessageProps) => {
   const { renderMessageContent = () => null, ...msg } = props;
-  const { type, content, user = {}, _id: id, position = 'left', hasTime = true, createdAt } = msg;
+  const { type, content, user = {}, _id: id, position = 'left', hasTime = true, createdAt, timeFormat } = msg;
   const { name, avatar, avatarAlt } = user;
 
   if (type === 'system') {
@@ -69,7 +73,7 @@ const Message = (props: MessageProps) => {
     <div className={clsx('Message', position)} data-id={id} data-type={type}>
       {hasTime && createdAt && (
         <div className="Message-meta">
-          <Time date={createdAt} />
+          <Time date={createdAt} timeFormat={timeFormat} />
         </div>
       )}
       <div className="Message-main">

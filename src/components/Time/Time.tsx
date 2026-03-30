@@ -1,18 +1,19 @@
 import React from 'react';
-import formatDate, { IDate } from './parser';
-import { useLocale } from '../ConfigProvider';
+import { IDate } from './parser';
+import dayjs from "dayjs"
 
 export interface TimeProps {
   date: IDate;
+  timeFormat?: string
 }
 
-export const Time = ({ date }: TimeProps) => {
-  const { trans } = useLocale('Time');
+export const Time = ({ date, timeFormat = 'MM-DD-YYYY HH:mm:ss' }: TimeProps) => {
   const dateTime = new Date(date).toLocaleString('zh').replace(/\//g, '-');
+  const dateTxt = dayjs(date).format(timeFormat)
 
   return (
     <time className="Time" dateTime={dateTime}>
-      {formatDate(date, trans())}
+      {dateTxt}
     </time>
   );
 };
