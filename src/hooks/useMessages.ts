@@ -28,7 +28,7 @@ const makeMsg = (msg: MessageWithoutId, id?: MessageId) => {
   };
 };
 
-export default function useMessages(initialState: MessageWithoutId[] = []) {
+export default function useMessages(initialState: MessageWithoutId[] = [], sort = true) {
   const initialMsgs: Messages = useMemo(() => initialState.map((t) => makeMsg(t)), [initialState]);
   const [messages, setMessages] = useState(initialMsgs);
 
@@ -37,12 +37,26 @@ export default function useMessages(initialState: MessageWithoutId[] = []) {
   }, []);
 
   const updateMsg = useCallback((id: MessageId, msg: MessageWithoutId) => {
-    setMessages((prev) => prev.map((t) => (t._id === id ? makeMsg(msg, id) : t)));
+    setMessages((prev) => {
+      const list = prev.map((t) => (t._id === id ? makeMsg(msg, id) : t))
+
+      if(sort){
+        return list.sort((a, b) => (a.createdAt ?? 0) - (b.createdAt ?? 0))
+      }
+      return list
+    });
   }, []);
 
   const appendMsg = useCallback((msg: MessageWithoutId) => {
     const newMsg = makeMsg(msg);
-    setMessages((prev) => [...prev, newMsg]);
+    setMessages((prev) => {
+      const list = [...prev, newMsg]
+
+      if(sort){
+        return list.sort((a, b) => (a.createdAt ?? 0) - (b.createdAt ?? 0))
+      }
+      return list
+    });
     return newMsg._id;
   }, []);
 
