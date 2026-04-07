@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Chat, {
   Bubble,
@@ -20,6 +20,7 @@ import Chat, {
   ToolbarItemProps,
   RateActions,
   useTitleTyping,
+  Input,
 } from '../../../src';
 import OrderSelector from './OrdderSelector';
 
@@ -175,6 +176,7 @@ export default () => {
   const { messages, appendMsg, prependMsgs } = useMessages(initialMessages);
   const { quickReplies, replace } = useQuickReplies(defaultQuickReplies);
   const msgRef = React.useRef(null);
+  const [msgText, setMsgText] = useState('');
 
   const { isTyping, start, stop } = useTitleTyping();
 
@@ -365,6 +367,21 @@ export default () => {
     }
   }
 
+  const sendMsg = () => {
+    appendMsg({
+      type: 'text',
+      content: { text: msgText },
+      position: 'right',
+    });
+    setMsgText('')
+  }
+  const keyDownHandle = (e: React.KeyboardEvent<any>) => {
+    if (e.key === 'Enter') {
+        e.preventDefault()
+        sendMsg()
+    }
+  }
+
   return (
     <Chat
       colorScheme="auto"
@@ -405,6 +422,13 @@ export default () => {
       onQuickReplyClick={handleQuickReplyClick}
       onSend={handleSend}
       onImageSend={() => Promise.resolve()}
-    />
+    >
+      <Flex>
+        <Input value={msgText} 
+          onChange={val => setMsgText(val)} 
+          onKeyDown={e => keyDownHandle(e)}/>
+        <Button onClick={() => sendMsg()}>send</Button>
+      </Flex>
+    </Chat>
   );
 };
