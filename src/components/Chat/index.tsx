@@ -7,11 +7,9 @@ import {
   MessageContainerHandle,
 } from '../MessageContainer';
 import { QuickReplies, QuickReplyItemProps } from '../QuickReplies';
-import {  ComposerProps } from '../Composer';
 import { isSafari, isHuaweiBrowser, getIOSMajorVersion } from '../../utils/ua';
 
-export type ChatProps = Omit<ComposerProps, 'onFocus' | 'onChange' | 'onBlur'> &
-  ConfigContextType &
+export type ChatProps = ConfigContextType &
   MessageContainerProps & {
     /**
      * 导航栏配置
@@ -69,6 +67,7 @@ export type ChatProps = Omit<ComposerProps, 'onFocus' | 'onChange' | 'onBlur'> &
      * 快捷短语渲染函数
      */
     renderQuickReplies?: () => void;
+    isX?: boolean;
     children?: ReactNode | (() => ReactNode)
   };
 
