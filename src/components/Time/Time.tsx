@@ -7,7 +7,7 @@ export interface TimeProps {
   timeFormat?: string
 }
 
-export const Time = ({ date, timeFormat = 'MM-DD-YYYY HH:mm:ss' }: TimeProps) => {
+export const Time = ({ date, timeFormat = 'DD-MM-YYYY HH:mm:ss' }: TimeProps) => {
   const dateTime = new Date(date).toLocaleString('zh').replace(/\//g, '-');
   const dateTxt = dayjs(date).format(timeFormat)
 

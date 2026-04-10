@@ -8,6 +8,10 @@ type MessageWithoutId = Omit<MessageProps, '_id'> & {
   _id?: MessageId;
 };
 
+type Options = {
+  sort?: boolean
+}
+
 const TIME_GAP = 5 * 60 * 1000;
 let lastTs = 0;
 
@@ -28,22 +32,28 @@ const makeMsg = (msg: MessageWithoutId, id?: MessageId) => {
   };
 };
 
-export default function useMessages(initialState: MessageWithoutId[] = [], sort = true) {
+export default function useMessages(initialState: MessageWithoutId[] = [], options: Options) {
+  const { sort = true} = options
+
+  
   const initialMsgs: Messages = useMemo(() => initialState.map((t) => makeMsg(t)), [initialState]);
   const [messages, setMessages] = useState(initialMsgs);
 
+  const sortList = (list: MessageProps[]) => {
+    return list.sort((a, b) => (a.createdAt ?? 0) - (b.createdAt ?? 0))
+  }
+
   const prependMsgs = useCallback((msgs: Messages) => {
-    setMessages((prev: Messages) => [...msgs, ...prev]);
+    setMessages((prev: Messages) => {
+      const list = [...msgs, ...prev]
+      return sort ? sortList(list) : list
+    });
   }, []);
 
   const updateMsg = useCallback((id: MessageId, msg: MessageWithoutId) => {
     setMessages((prev) => {
       const list = prev.map((t) => (t._id === id ? makeMsg(msg, id) : t))
-
-      if(sort){
-        return list.sort((a, b) => (a.createdAt ?? 0) - (b.createdAt ?? 0))
-      }
-      return list
+      return sort ? sortList(list) : list
     });
   }, []);
 
@@ -51,11 +61,7 @@ export default function useMessages(initialState: MessageWithoutId[] = [], sort 
     const newMsg = makeMsg(msg);
     setMessages((prev) => {
       const list = [...prev, newMsg]
-
-      if(sort){
-        return list.sort((a, b) => (a.createdAt ?? 0) - (b.createdAt ?? 0))
-      }
-      return list
+      return sort ? sortList(list) : list
     });
     return newMsg._id;
   }, []);
@@ -65,7 +71,8 @@ export default function useMessages(initialState: MessageWithoutId[] = [], sort 
   }, []);
 
   const resetList = useCallback((list = []) => {
-    setMessages(list);
+    const msgs = sort ? sortList(list) : list
+    setMessages(msgs);
   }, []);
 
   return {
