@@ -17,6 +17,7 @@ export interface MessageContainerProps {
   onRefresh?: () => Promise<any>;
   onScroll?: (event: React.UIEvent<HTMLDivElement, UIEvent>) => void;
   renderBeforeMessageList?: () => React.ReactNode;
+  showScollBottom?: boolean;
   onBackBottomShow?: () => void;
   onBackBottomClick?: () => void;
 }
@@ -41,6 +42,7 @@ export const MessageContainer = React.forwardRef<MessageContainerHandle, Message
       onScroll,
       renderBeforeMessageList,
       renderMessageContent,
+      showScollBottom = false,
       onBackBottomShow,
       onBackBottomClick,
     } = props;
@@ -198,7 +200,7 @@ export const MessageContainer = React.forwardRef<MessageContainerHandle, Message
             {isTyping && <Message type="typing" _id="typing" />}
           </div>
         </PullToRefresh>
-        {showBackBottom && (
+        {showScollBottom && showBackBottom && (
           <BackBottom
             count={newCount}
             onClick={handleBackBottomClick}

@@ -173,7 +173,7 @@ const toolbar: ToolbarItemProps[] = [
 
 export default () => {
   // 消息列表
-  const { messages, appendMsg, prependMsgs } = useMessages(initialMessages);
+  const { messages, appendMsg, prependMsgs } = useMessages(initialMessages, {});
   const { quickReplies, replace } = useQuickReplies(defaultQuickReplies);
   const msgRef = React.useRef(null);
   const [msgText, setMsgText] = useState('');

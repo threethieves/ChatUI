@@ -87,6 +87,7 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => 
     messages = [],
     isTyping,
     renderMessageContent,
+    showScollBottom,
     onBackBottomShow,
     onBackBottomClick,
     quickReplies = [],
@@ -165,6 +166,7 @@ export const Chat = React.forwardRef<HTMLDivElement, ChatProps>((props, ref) => 
           renderMessageContent={renderMessageContent}
           onRefresh={onRefresh}
           onScroll={onScroll}
+          showScollBottom={showScollBottom}
           onBackBottomShow={onBackBottomShow}
           onBackBottomClick={onBackBottomClick}
         />
