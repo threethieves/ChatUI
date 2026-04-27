@@ -10,11 +10,12 @@ export interface TypingBubbleProps extends React.HTMLAttributes<HTMLDivElement> 
   options?: Options;
   messageRender?: (content: string) => string;
   onResize?: (el: HTMLDivElement) => void;
+  onTypingStatusChange?: (isTyping: boolean) => void; // 状态变化
   children?: React.ReactNode;
 }
 
 export const TypingBubble = (props: TypingBubbleProps) => {
-  const { content, className, isRichText, options, messageRender, onResize, children, ...other } =
+  const { content, className, isRichText, options, messageRender, onResize, onTypingStatusChange, children, ...other } =
     props;
   const { typedContent, isTyping } = useTypewriter(
     messageRender ? messageRender(content) : content,
@@ -42,6 +43,11 @@ export const TypingBubble = (props: TypingBubbleProps) => {
   }, [onResize]);
 
   const effect = isTyping ? 'typing' : null;
+
+  // 当 isTyping 状态变化时通知父组件
+  useEffect(() => {
+    onTypingStatusChange?.(isTyping);
+  }, [isTyping, onTypingStatusChange]);
 
   return (
     <div className={clsx('Bubble richtext', className)} {...other} ref={bubbleRef}>
