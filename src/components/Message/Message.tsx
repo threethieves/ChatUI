@@ -31,7 +31,7 @@ export interface MessageProps {
   /**
    * 消息创建时间
    */
-  createdAt?: number;
+  createdAt?: number | string;
   /**
    * 消息时间格式
    */

@@ -7,9 +7,11 @@ export interface TimeProps {
   timeFormat?: string
 }
 
+
 export const Time = ({ date, timeFormat = 'DD-MM-YYYY HH:mm:ss' }: TimeProps) => {
-  const dateTime = new Date(date).toLocaleString('zh').replace(/\//g, '-');
-  const dateTxt = dayjs(date).format(timeFormat)
+  const isString = typeof date === 'string';
+  const dateTime = isString ? date : new Date(date).toLocaleString('zh').replace(/\//g, '-');
+  const dateTxt = isString ? date : dayjs(date).format(timeFormat)
 
   return (
     <time className="Time" dateTime={dateTime}>
