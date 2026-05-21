@@ -106,6 +106,10 @@ npm i
 npm run dev
 ```
 
+### NPM地址
+
+[NPM LINK](https://www.npmjs.com/package/@dpocean/chatui)
+
 ## Theme
 
 Visit [Customize Theme](https://chatui.io/docs/customize-theme) for detail

@@ -106,6 +106,10 @@ npm i
 npm run storybook
 ```
 
+### NPM地址
+
+[NPM地址链接](https://www.npmjs.com/package/@dpocean/chatui)
+
 ### 定制主题
 
 参考 [定制主题](https://chatui.io/docs/customize-theme) 文档。
